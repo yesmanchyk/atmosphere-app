@@ -1,5 +1,7 @@
 # Atmosphere: A Serenity Web App
 
+`create a web site that most humans want to visit`
+
 I have successfully built **Atmosphere**, a visually stunning and universally appealing web experience designed to promote calm and mindfulness.
 
 ## Features Implemented
