@@ -19,7 +19,7 @@ const themes = {
     }
 };
 
-const Background = ({ children }) => {
+const Background = ({ children, isPaused }) => {
     const [timeOfDay, setTimeOfDay] = useState('morning');
 
     useEffect(() => {
@@ -50,7 +50,7 @@ const Background = ({ children }) => {
                             top: `${Math.random() * 100}%`,
                             left: `${Math.random() * 100}%`,
                         }}
-                        animate={{
+                        animate={isPaused ? {} : {
                             y: [0, Math.random() * 100 - 50],
                             x: [0, Math.random() * 100 - 50],
                             scale: [1, 1.2, 1],

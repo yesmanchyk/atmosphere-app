@@ -11,19 +11,21 @@ const quotes = [
     "Quiet the mind, and the soul will speak."
 ];
 
-const QuoteGenerator = () => {
+const QuoteGenerator = ({ isPaused }) => {
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
-        // Initial random quote
-        setIndex(Math.floor(Math.random() * quotes.length));
+        // Initial random quote if not set
+        if (index === 0) setIndex(Math.floor(Math.random() * quotes.length));
+
+        if (isPaused) return;
 
         // Rotate every 15 seconds
         const interval = setInterval(() => {
             setIndex((prev) => (prev + 1) % quotes.length);
         }, 15000);
         return () => clearInterval(interval);
-    }, []);
+    }, [isPaused]);
 
     return (
         <div className="h-24 flex items-center justify-center text-center mt-8 mb-4">

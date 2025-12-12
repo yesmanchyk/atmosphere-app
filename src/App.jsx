@@ -6,8 +6,21 @@ import { motion } from 'framer-motion';
 import BreathingCircle from './components/BreathingCircle';
 
 function App() {
+  const [isPaused, setIsPaused] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault(); // Prevent scrolling
+        setIsPaused(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
-    <Background>
+    <Background isPaused={isPaused}>
       <motion.header
         className="absolute top-0 w-full p-6 flex justify-between items-center opacity-80"
         initial={{ y: -20, opacity: 0 }}
@@ -30,12 +43,12 @@ function App() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          Relax & Unwind
+          {isPaused ? "Paused" : "Relax & Unwind"}
         </motion.h1>
 
-        <BreathingCircle />
+        <BreathingCircle isPaused={isPaused} />
 
-        <QuoteGenerator />
+        <QuoteGenerator isPaused={isPaused} />
       </div>
 
       <motion.footer
@@ -44,7 +57,7 @@ function App() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
       >
-        PRESS SPACE TO PAUSE
+        {isPaused ? "PRESS SPACE TO RESUME" : "PRESS SPACE TO PAUSE"}
       </motion.footer>
     </Background>
   );
